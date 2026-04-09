@@ -11,7 +11,7 @@ RUN r.js -o static/build.js && \
     mv build static && \
     rm -rf static.bak
 
-FROM ubuntu:18.04 as production-stage
+FROM ubuntu:20.04 as production-stage
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -33,8 +33,12 @@ RUN apt-get update && \
     libfontconfig1 \
     git \
     sudo \
-    cron && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+    python2 python2-dev \
+    cron \
+    && curl https://bootstrap.pypa.io/pip/2.7/get-pip.py -o get-pip.py \
+    && python2 get-pip.py \
+    && rm get-pip.py \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Certs
 RUN mkdir -p /etc/pki/tls/certs && \
