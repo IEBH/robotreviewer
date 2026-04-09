@@ -65,7 +65,7 @@ RUN python -m nltk.downloader punkt stopwords
 RUN python -m spacy download en
 
 ARG TFVER=tensorflow
-RUN pip install $TFVER==1.12.0
+RUN pip install $TFVER==1.12.0 --upgrade --ignore-installed
 
 # Get data
 USER root
